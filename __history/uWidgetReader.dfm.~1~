@@ -1,0 +1,32 @@
+object WidgetReader: TWidgetReader
+  Left = 0
+  Top = 0
+  Caption = 'WidgetReader'
+  ClientHeight = 450
+  ClientWidth = 377
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -13
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 120
+  TextHeight = 16
+  object DisplayMemo: TMemo
+    Left = 8
+    Top = 88
+    Width = 361
+    Height = 329
+    Lines.Strings = (
+      'DisplayMemo')
+    TabOrder = 0
+  end
+  object OpenFile: TOpenDialog
+    FileName = 
+      'C:\Users\xchen\Documents\Github\leadtec-abs-xe2\leadtec-abs-xe2-' +
+      'master\Source\Delphi\AbsDbx\AbmAbsPick.res'
+    Left = 176
+    Top = 32
+  end
+end
