@@ -2,8 +2,9 @@ program DelphiExercise1;
 
 uses
   Vcl.Forms,
-  uWidgetReader in 'uWidgetReader.pas' {WidgetReader},
-  uWidget in 'uWidget.pas';
+  uWidgetForm in 'uWidgetForm.pas' {WidgetReader},
+  uWidget in 'uWidget.pas',
+  uWidgetReader in 'uWidgetReader.pas';
 
 {$R *.res}
 
@@ -11,6 +12,6 @@ begin
   ReportMemoryLeaksOnShutdown := True;
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TWidgetReader, WidgetReader);
+  Application.CreateForm(TWidgetForm, WidgetForm);
   Application.Run;
 end.
