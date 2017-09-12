@@ -15,10 +15,10 @@
     <Transaction>2017/09/06 15:34:01.000.011,C:\Users\xchen\Documents\Delphi Projects\uWidgetReader.pas=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\uWidgetReader.pas</Transaction>
     <Transaction>2017/09/06 15:34:03.000.312,C:\Users\xchen\Documents\Delphi Projects\Project1.dproj=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\Project1.dproj</Transaction>
     <Transaction>2017/09/08 11:15:34.000.787,C:\Users\xchen\Documents\Delphi Projects\Exercise 1\Project1.dproj=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\DelphiExercise1.dproj</Transaction>
-    <Transaction>2017/09/11 10:27:28.976,=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\Unit1.pas</Transaction>
-    <Transaction>2017/09/11 10:27:44.948,C:\Users\xchen\Documents\Delphi Projects\Exercise 1\uWidgetForm.pas=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\uWidgetReader.pas</Transaction>
-    <Transaction>2017/09/11 10:27:44.948,C:\Users\xchen\Documents\Delphi Projects\Exercise 1\uWidgetForm.dfm=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\uWidgetReader.dfm</Transaction>
-    <Transaction>2017/09/11 10:27:56.951,C:\Users\xchen\Documents\Delphi Projects\Exercise 1\uWidgetReader.pas=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\Unit1.pas</Transaction>
+    <Transaction>2017/09/11 10:27:28.000.976,=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\Unit1.pas</Transaction>
+    <Transaction>2017/09/11 10:27:44.000.948,C:\Users\xchen\Documents\Delphi Projects\Exercise 1\uWidgetForm.pas=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\uWidgetReader.pas</Transaction>
+    <Transaction>2017/09/11 10:27:44.000.948,C:\Users\xchen\Documents\Delphi Projects\Exercise 1\uWidgetForm.dfm=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\uWidgetReader.dfm</Transaction>
+    <Transaction>2017/09/11 10:27:56.000.951,C:\Users\xchen\Documents\Delphi Projects\Exercise 1\uWidgetReader.pas=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\Unit1.pas</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="uWidgetForm.pas"/>

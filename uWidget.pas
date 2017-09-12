@@ -8,22 +8,21 @@ uses
 type
   TWidget = class
   private
-    fId : Integer;
-    fDescription : string;
+    FId : Integer;
+    FDescription : string;
     function GetAsString : string;
   public
-    property Id : Integer read fId;
-    property Description : string read fDescription write fDescription;
+    property Id : Integer read FId;
+    property Description : string read FDescription write FDescription;
     property AsString : string read GetAsString;
-    Constructor Create(Id: Integer; Description: string);
+    Constructor Create(AId: Integer; ADescription: string);
   end;
 
   TWidgetList = class
   private
-    fItems : TObjectList<TWidget>;
+    FItems : TObjectList<TWidget>;
     function GetItems(Index : Integer) : TWidget;
     procedure SetItems(Index : Integer; const Value : TWidget);
-//    function CompareIds(Item1, Item2 : Pointer) : Integer;
   public
     property Items[Index : Integer] : TWidget read GetItems write SetItems;
     function Add(Widget : TWidget): Integer;
@@ -36,64 +35,61 @@ type
 
 implementation
 
-Constructor TWidget.Create(Id: Integer; Description: string);
+uses Math;
+
+Constructor TWidget.Create(AId: Integer; ADescription: string);
 begin
   inherited Create;
-  self.fId := Id;
-  self.Description := Description;
+  FId := AId;
+  Description := ADescription;
 end;
 
 function TWidget.GetAsString: string;
 begin
-  Result := 'Id: ' + IntToStr(fId) + ' Description: ' +
-                   fDescription;
+  Result := 'Id: ' + IntToStr(FId) + ' Description: ' +
+                   FDescription;
 end;
 
 function TWidgetList.Add(Widget: TWidget) : Integer;
 begin
-  Result := fItems.Add(Widget);
+  Result := FItems.Add(Widget);
 end;
 
 function TWidgetList.Count : Integer;
 begin
-  Result := fItems.Count;
+  Result := FItems.Count;
 end;
 
 constructor TWidgetList.Create;
 begin
   inherited;
-  fItems := TObjectList<TWidget>.Create;
+  FItems := TObjectList<TWidget>.Create;
 end;
 
 function TWidgetList.GetItems(Index: Integer) : TWidget;
 begin
-  Result := TWidget(fItems[Index]);
+  Result := TWidget(FItems[Index]);
 end;
 
 procedure TWidgetList.SetItems(Index: Integer; const Value : TWidget);
 begin
-  fItems[Index] := Value;
+  FItems[Index] := Value;
 end;
 
 
 procedure TWidgetList.SortById;
 begin
-  fItems.Sort(TComparer<TWidget>.Construct(
+  FItems.Sort(TComparer<TWidget>.Construct(
     function(const L, R: TWidget) : Integer
     begin
-       Result :=  L.fid - R.fid;
+       Result := CompareValue(L.FId, R.FId);
     end
   ));
 end;
 
 destructor TWidgetList.Destroy;
 begin
-//  for i := fItems.Count - 1 downto 0 do
-//  begin
-//    fItems[i].Free;
-//  end;
-  fItems.Free;
-
+  FItems.Free;
   inherited;
 end;
 

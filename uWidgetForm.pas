@@ -10,174 +10,62 @@ type
   TWidgetForm = class(TForm)
     DisplayMemo: TMemo;
     OpenFileButton: TButton;
-
     procedure OpenFileButtonClick(Sender: TObject);
+  private
     procedure DisplayResult(WidgetList : TWidgetList; DisplayMemo : TMemo);
-//    function LoadFileToStr(const FileName: TFileName): AnsiString;
-//    procedure ListCreate(FileContent : string; WidgetList : TWidgetList);
-//    procedure LoadFileToList(const FileName: TFileName;
-//                              WidgetList : TWidgetList);
-//    procedure AddWidgetToList(SourceStr : string; WidgetList : TWidgetList);
   end;
 
 var
   WidgetForm: TWidgetForm;
-//  WidgetList : TWidgetList;
 
 implementation
 
 {$R *.dfm}
 
-{
-function TWidgetReader.LoadFileToStr(const FileName: TFileName) : AnsiString;
-var
-  FileStream : TFileStream;
-begin
-  FileStream := TFileStream.Create(FileName, fmOpenRead or fmShareDenyWrite);
-  try
-    if FileStream.Size > 0 then
-    begin
-      SetLength(Result, FileStream.Size);
-      FileStream.Read(Pointer(Result)^, FileStream.Size);
-    end;
-  finally
-    FileStream.Free;
-  end;
-end;
-}
-
-{
-procedure TWidgetReader.LoadFileToList(const FileName: TFileName;
-                                      WidgetList : TwidgetList);
-var
-  Reader : TStreamReader;
-  LineContent : string;
-begin
-  Reader := TStreamReader.Create(
-            FileName,
-            TEncoding.UTF8);
-  try
-    while not(Reader.EndOfStream) do
-    begin
-      LineContent := Reader.ReadLine;
-      AddWidgetToList(LineContent,WidgetList);
-    end;
-  except
-    on E : Exception do
-      ShowMessage ('Exception Message = ' + E.Message);
-  end;
-  Reader.Free;
-end;
-
-procedure TWidgetReader.AddWidgetToList(SourceStr: string; WidgetList: TWidgetList);
-var
-  description : string;
-  id : Integer;
-  tabPosition : Integer;
-  StrLength : Integer;
-  Widget : TWidget;
-begin
-  StrLength := Length(SourceStr);
-  tabPosition := Pos(#9,SourceStr);
-  id := StrToInt(Copy(SourceStr,0,tabPosition-1));
-  description := Copy(SourceStr,tabPosition+1,StrLength - tabPosition);
-  Widget := TWidget.Create(id,description);
-  WidgetList.Add(Widget);
-end;
-
-}
-
-{
-procedure TwidgetReader.ListCreate(FileContent: string; WidgetList : TWidgetList);
-var
-  Widget : TWidget;
-  StrLength : Integer;
-  i : Integer;
-  ch : char;
-  buffer : string;
-  flag : boolean; //true for Id; false for Description;
-  id : integer;
-begin
-  StrLength := Length(FileContent);
-  id := 0;
-  buffer := '';
-  ch := ' ';
-  i := 0;
-  flag := true;
-  while i <= StrLength do
-  begin
-    if ch = #9 then
-      begin
-        if flag then
-        begin
-          id := StrToInt(buffer);
-          buffer := '';
-          ch := ' ';
-          flag := false;
-        end
-        else
-        begin
-          Widget := TWidget.Create(id,buffer);
-          WidgetList.Add(Widget);
-          buffer :='';
-          ch := ' ';
-          flag := true;
-        end;
-
-      end
-      else
-      begin
-        ch := FileContent[i];
-        if (ch <> #0) and (ch <> #9)  then
-          buffer := buffer + ch;
-        inc(i);
-      end;
-    end;
-  Widget := TWidget.Create(id,buffer);
-  WidgetList.Add(Widget);
-end;
-}
-
 procedure TWidgetForm.OpenFileButtonClick(Sender: TObject);
 var
   OpenFile : TOpenDialog;
-//  FileContent : string;
   WidgetList : TWidgetList;
   WidgetReader : TWidgetReader;
 begin
   OpenFile := TOpenDialog.Create(self);
-  OpenFile.InitialDir := GetCurrentDir;
-  OpenFile.Options := [ofFileMustExist];
-  if not OpenFile.Execute then
-    ShowMessage('Open file was cancelled')
-  else
-  begin
-    WidgetList := TWidgetList.Create;
-    WidgetReader := TWidgetReader.Create;
-
-    WidgetReader.LoadFileToList(OpenFile.Files[0],WidgetList);
- //   FileContent := string(LoadFileToStr(OpenFile.Files[0]));
-    DisplayMemo.Text :='';
- //   ListCreate(FileContent,WidgetList);
-    DisplayResult(WidgetList, DisplayMemo);
-    WidgetReader.Free;
-    WidgetList.Destroy;
+  try
+    OpenFile.InitialDir := GetCurrentDir;
+    OpenFile.DefaultExt := 'txt';
+    OpenFile.Filter := 'Text File(*.txt)|*.txt|all files(*.*)|*.*';
+    OpenFile.FilterIndex := 1;
+    OpenFile.Options := [ofFileMustExist];
+    if OpenFile.Execute then
+    begin
+      WidgetList := TWidgetList.Create;
+      try
+        WidgetReader := TWidgetReader.Create;
+        try
+          WidgetReader.LoadFileToList(OpenFile.FileName,WidgetList);
+          DisplayMemo.Text :='';
+          DisplayResult(WidgetList, DisplayMemo);
+        finally
+          WidgetReader.Free;
+        end;
+      finally
+        WidgetList.Free;
+      end;
+    end;
+  finally
+    OpenFile.Free;
   end;
-  OpenFile.Free;
 end;
 
 procedure TWidgetForm.DisplayResult(WidgetList : TWidgetList; DisplayMemo : TMemo);
 var
-  count : Integer;
-  i : Integer;
-  widget : TWidget;
+  I : Integer;
+  Widget : TWidget;
 begin
   WidgetList.SortById;
-  count := WidgetList.Count;
-  for i := 0 to count - 1 do
+  for I := 0 to WidgetList.Count - 1 do
   begin
-    widget := WidgetList.Items[i];
-    DisplayMemo.Text := DisplayMemo.Text + widget.AsString + #13#10;
+    Widget := WidgetList.Items[I];
+    DisplayMemo.Lines.Add(Widget.AsString);
   end;
 
 end;

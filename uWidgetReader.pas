@@ -7,10 +7,16 @@ uses
 
 type
   TWidgetReader = class
+  private
+    procedure AddWidgetToList(SourceStr : string; WidgetList : TWidgetList);
+  public
     procedure LoadFileToList(const FileName: TFileName;
                               WidgetList : TWidgetList);
-    procedure AddWidgetToList(SourceStr : string; WidgetList : TWidgetList);
   end;
+
+
+const
+  TAB : char = #9;
 
 implementation
 
@@ -29,25 +35,23 @@ begin
       LineContent := Reader.ReadLine;
       AddWidgetToList(LineContent,WidgetList);
     end;
-  except
-    on E : Exception do
-      ShowMessage ('Exception Message = ' + E.Message);
+  finally
+    FreeAndNil(Reader);
   end;
-  Reader.Free;
 end;
 
 procedure TWidgetReader.AddWidgetToList(SourceStr: string; WidgetList: TWidgetList);
 var
-  description : string;
-  id : Integer;
-  tabPosition : Integer;
+  Description : string;
+  Id : Integer;
+  TabPosition : Integer;
   StrLength : Integer;
   Widget : TWidget;
 begin
   StrLength := Length(SourceStr);
-  tabPosition := Pos(#9,SourceStr);
-  id := StrToInt(Copy(SourceStr,0,tabPosition-1));
-  description := Copy(SourceStr,tabPosition+1,StrLength - tabPosition);
+  TabPosition := Pos(TAB,SourceStr);
+  Id := StrToInt(Copy(SourceStr,0,tabPosition-1));
+  Description := Copy(SourceStr,tabPosition+1,StrLength - tabPosition);
   Widget := TWidget.Create(id,description);
   WidgetList.Add(Widget);
 end;
