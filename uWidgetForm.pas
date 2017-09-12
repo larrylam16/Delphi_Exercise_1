@@ -39,15 +39,14 @@ var
   WidgetList : TWidgetList;
   WidgetReader : TWidgetReader;
 begin
-//  ShowMessage('changed');
   WidgetList := TWidgetList.Create;
   try
     WidgetReader := TWidgetReader.Create;
     try
-      if ComboBox.SelText = REDWIDGET then
+      if ComboBox.Text = REDWIDGET then
         WidgetReader.LoadFileToList(FFileName,WidgetList,REDWIDGET)
       else
-        if ComboBox.SelText = BLUEWIDGET then
+        if ComboBox.Text = BLUEWIDGET then
           WidgetReader.LoadFileToList(FFileName,WidgetList,BLUEWIDGET);
       DisplayMemo.Text :='';
       DisplayResult(WidgetList, DisplayMemo);
@@ -76,6 +75,7 @@ begin
       FFileName := OpenFile.FileName;
       ComboBox.Enabled := true;
       ComboBox.Clear;
+      DisplayMemo.Clear;
       ComboBox.AddItem(REDWIDGET,nil);
       ComboBox.AddItem(BLUEWIDGET,nil);
     end;

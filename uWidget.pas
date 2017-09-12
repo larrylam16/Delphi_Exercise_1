@@ -54,8 +54,9 @@ end;
 
 function TWidget.GetAsString: string;
 begin
-  Result := 'Id: ' + IntToStr(FId) + ' Description: ' +
-                   FDescription;
+  Result := 'Id: ' + IntToStr(FId) + ', Description: ' +
+                   FDescription + ', Color: ' + GetColor +
+                   ', Size: ' + IntToStr(FSize);
 end;
 
 function TWidgetList.Add(Widget: TWidget) : Integer;
