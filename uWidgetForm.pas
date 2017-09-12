@@ -6,12 +6,20 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, uWidget, uWidgetReader;
 
+const
+  REDWIDGET : string = 'RedWidget';
+  BLUEWIDGET : string = 'BlueWidget';
+
 type
   TWidgetForm = class(TForm)
     DisplayMemo: TMemo;
     OpenFileButton: TButton;
+    ComboBox: TComboBox;
     procedure OpenFileButtonClick(Sender: TObject);
+    procedure ComboBoxChange(Sender: TObject);
+    constructor Create(AOwner: TComponent); override;
   private
+    FFileName : string;
     procedure DisplayResult(WidgetList : TWidgetList; DisplayMemo : TMemo);
   end;
 
@@ -21,12 +29,43 @@ var
 implementation
 
 {$R *.dfm}
+constructor TWidgetForm.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  ComboBox.Style := csDropDownList;
+  FFileName := '';
+  ComboBox.Enabled := false;
+  DisplayMemo.Clear;
+end;
+
+procedure TwidgetForm.ComboBoxChange(Sender: TObject);
+var
+  WidgetList : TWidgetList;
+  WidgetReader : TWidgetReader;
+begin
+//  ShowMessage('changed');
+  WidgetList := TWidgetList.Create;
+  try
+    WidgetReader := TWidgetReader.Create;
+    try
+      if ComboBox.SelText = REDWIDGET then
+        WidgetReader.LoadFileToList(FFileName,WidgetList,REDWIDGET)
+      else if ComboBox.SelText = BLUEWIDGET then
+        WidgetReader.LoadFileToList(FFileName,WidgetList,BLUEWIDGET);
+      DisplayMemo.Text :='';
+      DisplayResult(WidgetList, DisplayMemo);
+    finally
+      WidgetReader.Free;
+    end;
+  finally
+    WidgetList.Free;
+  end;
+
+end;
 
 procedure TWidgetForm.OpenFileButtonClick(Sender: TObject);
 var
   OpenFile : TOpenDialog;
-  WidgetList : TWidgetList;
-  WidgetReader : TWidgetReader;
 begin
   OpenFile := TOpenDialog.Create(self);
   try
@@ -37,22 +76,14 @@ begin
     OpenFile.Options := [ofFileMustExist];
     if OpenFile.Execute then
     begin
-      WidgetList := TWidgetList.Create;
-      try
-        WidgetReader := TWidgetReader.Create;
-        try
-          WidgetReader.LoadFileToList(OpenFile.FileName,WidgetList);
-          DisplayMemo.Text :='';
-          DisplayResult(WidgetList, DisplayMemo);
-        finally
-          WidgetReader.Free;
-        end;
-      finally
-        WidgetList.Free;
-      end;
+      FFileName := OpenFile.FileName;
+      ComboBox.Enabled := true;
+      ComboBox.Clear;
+      ComboBox.AddItem(REDWIDGET,nil);
+      ComboBox.AddItem(BLUEWIDGET,nil);
     end;
   finally
-    OpenFile.Free;
+    FreeAndNil(OpenFile);
   end;
 end;
 

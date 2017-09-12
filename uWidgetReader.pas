@@ -11,7 +11,8 @@ type
     procedure AddWidgetToList(SourceStr : string; WidgetList : TWidgetList);
   public
     procedure LoadFileToList(const FileName: TFileName;
-                              WidgetList : TWidgetList);
+                              WidgetList : TWidgetList;
+                              WidgetType : string);
   end;
 
 
@@ -21,7 +22,8 @@ const
 implementation
 
 procedure TWidgetReader.LoadFileToList(const FileName: TFileName;
-                                      WidgetList : TwidgetList);
+                                      WidgetList : TwidgetList;
+                                      WidgetType : string);
 var
   Reader : TStreamReader;
   LineContent : string;

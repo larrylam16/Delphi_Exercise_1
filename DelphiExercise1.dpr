@@ -4,7 +4,8 @@ uses
   Vcl.Forms,
   uWidgetForm in 'uWidgetForm.pas' {WidgetReader},
   uWidget in 'uWidget.pas',
-  uWidgetReader in 'uWidgetReader.pas';
+  uWidgetReader in 'uWidgetReader.pas',
+  uSubWidget in 'uSubWidget.pas';
 
 {$R *.res}
 

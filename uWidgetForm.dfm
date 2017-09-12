@@ -23,12 +23,21 @@ object WidgetForm: TWidgetForm
     TabOrder = 0
   end
   object OpenFileButton: TButton
-    Left = 144
-    Top = 40
+    Left = 40
+    Top = 32
     Width = 75
     Height = 25
     Caption = 'Open File'
     TabOrder = 1
     OnClick = OpenFileButtonClick
+  end
+  object ComboBox: TComboBox
+    Left = 192
+    Top = 32
+    Width = 145
+    Height = 24
+    TabOrder = 2
+    Text = 'Choose WidgetType'
+    OnChange = ComboBoxChange
   end
 end

@@ -10,12 +10,17 @@ type
   private
     FId : Integer;
     FDescription : string;
+    FSize : Integer;
     function GetAsString : string;
   public
     property Id : Integer read FId;
     property Description : string read FDescription write FDescription;
     property AsString : string read GetAsString;
-    Constructor Create(AId: Integer; ADescription: string);
+    property Size : Integer read FSize write FSize;
+    Constructor Create(AId: Integer; ADescription: string); virtual;
+    function GetColor : string; virtual; abstract;
+    property Color : string read GetColor;
+
   end;
 
   TWidgetList = class
@@ -37,12 +42,15 @@ implementation
 
 uses Math;
 
+
 Constructor TWidget.Create(AId: Integer; ADescription: string);
 begin
   inherited Create;
   FId := AId;
-  Description := ADescription;
+  FDescription := ADescription;
+  FSize := 0;
 end;
+
 
 function TWidget.GetAsString: string;
 begin

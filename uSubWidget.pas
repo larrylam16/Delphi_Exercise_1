@@ -28,9 +28,7 @@ implementation
 
   Constructor TRedWidget.Create(AId: Integer; ADescription: string);
     begin
-      inherited Create;
-      Id := AId;
-      Description := ADescription;
+      inherited Create(AId,ADescription);
       Size := 0;
     end;
   function TRedWidget.GetColor : string;
@@ -40,9 +38,7 @@ implementation
 
   Constructor TBlueWidget.Create(AId: Integer; ADescription: string);
     begin
-      inherited Create;
-      Id := AId;
-      Description := ADescription;
+      inherited Create(AId,ADescription);
       Size := 2;
     end;
   function TBlueWidget.GetColor : string;
