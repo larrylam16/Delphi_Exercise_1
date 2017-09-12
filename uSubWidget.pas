@@ -3,11 +3,8 @@ unit uSubWidget;
 interface
 
 uses
-  SysUtils, Classes, Generics.Collections, Generics.Defaults, uWidget;
+  SysUtils, Classes, Generics.Collections, Generics.Defaults, uConstValue, uWidget;
 
-const
-  BLUE : string = 'blue';
-  RED : string = 'red';
 
 type
   TRedWidget = class(TWidget)

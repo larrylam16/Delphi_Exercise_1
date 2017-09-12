@@ -5,7 +5,8 @@ uses
   uWidgetForm in 'uWidgetForm.pas' {WidgetReader},
   uWidget in 'uWidget.pas',
   uWidgetReader in 'uWidgetReader.pas',
-  uSubWidget in 'uSubWidget.pas';
+  uSubWidget in 'uSubWidget.pas',
+  uConstValue in 'uConstValue.pas';
 
 {$R *.res}
 

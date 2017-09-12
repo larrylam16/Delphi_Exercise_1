@@ -4,11 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, uWidget, uWidgetReader;
-
-const
-  REDWIDGET : string = 'RedWidget';
-  BLUEWIDGET : string = 'BlueWidget';
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, uWidget, uWidgetReader, uConstValue;
 
 type
   TWidgetForm = class(TForm)
@@ -50,8 +46,9 @@ begin
     try
       if ComboBox.SelText = REDWIDGET then
         WidgetReader.LoadFileToList(FFileName,WidgetList,REDWIDGET)
-      else if ComboBox.SelText = BLUEWIDGET then
-        WidgetReader.LoadFileToList(FFileName,WidgetList,BLUEWIDGET);
+      else
+        if ComboBox.SelText = BLUEWIDGET then
+          WidgetReader.LoadFileToList(FFileName,WidgetList,BLUEWIDGET);
       DisplayMemo.Text :='';
       DisplayResult(WidgetList, DisplayMemo);
     finally

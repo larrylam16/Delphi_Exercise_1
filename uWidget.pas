@@ -3,7 +3,7 @@ unit uWidget;
 interface
 
 uses
-  SysUtils, Classes, Generics.Collections, Generics.Defaults;
+  SysUtils, Classes, Generics.Collections, Generics.Defaults, uConstValue;
 
 type
   TWidget = class

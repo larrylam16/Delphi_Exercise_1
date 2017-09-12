@@ -89,6 +89,7 @@
 			<DCCReference Include="uWidget.pas"/>
 			<DCCReference Include="uWidgetReader.pas"/>
 			<DCCReference Include="uSubWidget.pas"/>
+			<DCCReference Include="uConstValue.pas"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
