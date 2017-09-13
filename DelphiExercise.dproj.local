@@ -23,7 +23,7 @@
     <Transaction>2017/09/12 11:13:45.000.015,C:\Users\xchen\Documents\Delphi Projects\Exercise 1\Unit1.pas=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\uSubWidget.pas</Transaction>
     <Transaction>2017/09/12 14:19:31.000.993,=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\Unit1.pas</Transaction>
     <Transaction>2017/09/12 14:20:14.000.388,C:\Users\xchen\Documents\Delphi Projects\Exercise 1\Unit1.pas=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\uConstValue.pas</Transaction>
-    <Transaction>2017/09/12 15:02:55.556,C:\Users\xchen\Documents\Delphi Projects\Exercise\DelphiExercise.dproj=C:\Users\xchen\Documents\Delphi Projects\Exercise\DelphiExercise1.dproj</Transaction>
+    <Transaction>2017/09/12 15:02:55.000.556,C:\Users\xchen\Documents\Delphi Projects\Exercise\DelphiExercise.dproj=C:\Users\xchen\Documents\Delphi Projects\Exercise\DelphiExercise1.dproj</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <File Path="uWidgetForm.pas"/>

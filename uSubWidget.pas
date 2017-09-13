@@ -8,39 +8,43 @@ uses
 
 type
   TRedWidget = class(TWidget)
-  private
-  public
-    Constructor Create(AId: Integer; ADescription: string); override;
+  protected
     function GetColor : string; override;
+  public
+    constructor Create(AId: Integer; ADescription: string); override;
   end;
 
   TBlueWidget = class(TWidget)
-  private
-  public
-  Constructor Create(AId: Integer; ADescription: string); override;
+  protected
     function GetColor : string; override;
+  public
+    constructor Create(AId: Integer; ADescription: string); override;
   end;
 
 implementation
 
-  Constructor TRedWidget.Create(AId: Integer; ADescription: string);
-    begin
-      inherited Create(AId,ADescription);
-      Size := 0;
-    end;
-  function TRedWidget.GetColor : string;
+constructor TRedWidget.Create(AId: Integer; ADescription: string);
   begin
-    Result := BLUE;
+    inherited Create(AId,ADescription);
+    Size := 0;
   end;
 
-  Constructor TBlueWidget.Create(AId: Integer; ADescription: string);
-    begin
-      inherited Create(AId,ADescription);
-      Size := 2;
-    end;
-  function TBlueWidget.GetColor : string;
+function TRedWidget.GetColor : string;
+begin
+  inherited;
+  Result := RED;
+end;
+
+constructor TBlueWidget.Create(AId: Integer; ADescription: string);
   begin
-    Result := RED;
+    inherited Create(AId,ADescription);
+    Size := 2;
   end;
+
+function TBlueWidget.GetColor : string;
+begin
+  inherited;
+  Result := BLUE;
+end;
 
 end.

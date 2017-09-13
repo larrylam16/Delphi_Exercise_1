@@ -18,12 +18,10 @@ object WidgetForm: TWidgetForm
     Top = 88
     Width = 361
     Height = 329
-    Lines.Strings = (
-      'DisplayMemo')
     TabOrder = 0
   end
   object OpenFileButton: TButton
-    Left = 40
+    Left = 248
     Top = 32
     Width = 75
     Height = 25
@@ -32,12 +30,12 @@ object WidgetForm: TWidgetForm
     OnClick = OpenFileButtonClick
   end
   object ComboBox: TComboBox
-    Left = 192
+    Left = 32
     Top = 32
     Width = 145
     Height = 24
+    Style = csDropDownList
     TabOrder = 2
-    Text = 'Choose WidgetType'
     OnChange = ComboBoxChange
   end
 end
