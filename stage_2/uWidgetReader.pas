@@ -9,24 +9,20 @@ type
   TWidgetReader = class
   private
     procedure AddWidgetToList(SourceStr : string; WidgetList : TWidgetList;
-                              WidgetType : string);
+                              WidgetClass : TWidgetClass);
   public
     procedure LoadFileToList(const FileName: TFileName;
                               WidgetList : TWidgetList;
-                              WidgetType : string);
+                              WidgetClass : TWidgetClass);
   end;
-
-
 
 
 implementation
 
-uses
-  uSubWidget;
 
 procedure TWidgetReader.LoadFileToList(const FileName: TFileName;
                                       WidgetList : TwidgetList;
-                                      WidgetType : string);
+                                      WidgetClass : TWidgetClass);
 var
   Reader : TStreamReader;
   LineContent : string;
@@ -38,7 +34,7 @@ begin
     while not(Reader.EndOfStream) do
     begin
       LineContent := Reader.ReadLine;
-      AddWidgetToList(LineContent,WidgetList,WidgetType);
+      AddWidgetToList(LineContent,WidgetList,WidgetClass);
     end;
   finally
     FreeAndNil(Reader);
@@ -47,7 +43,7 @@ end;
 
 procedure TWidgetReader.AddWidgetToList(SourceStr: string;
                                         WidgetList: TWidgetList;
-                                        WidgetType : string);
+                                        WidgetClass : TWidgetClass);
 var
   Description : string;
   Id : Integer;
@@ -59,11 +55,7 @@ begin
   TabPosition := Pos(TAB,SourceStr);
   Id := StrToInt(Copy(SourceStr,0,tabPosition-1));
   Description := Copy(SourceStr,tabPosition+1,StrLength - tabPosition);
-  if WidgetType = REDWIDGET then
-    Widget := TRedWidget.Create(id,description)
-  else
-    if WidgetType = BLUEWIDGET then
-      Widget := TBlueWidget.Create(id,description);
+  Widget := WidgetClass.Create(id,description);
   WidgetList.Add(Widget);
 end;
 

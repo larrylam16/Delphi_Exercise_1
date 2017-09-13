@@ -12,13 +12,14 @@ type
     FDescription : string;
     FSize : Integer;
     function GetAsString : string;
+  protected
+    function GetColor : string; virtual; abstract;
   public
+    Constructor Create(AId: Integer; ADescription: string); virtual;
     property Id : Integer read FId;
     property Description : string read FDescription write FDescription;
     property AsString : string read GetAsString;
     property Size : Integer read FSize write FSize;
-    Constructor Create(AId: Integer; ADescription: string); virtual;
-    function GetColor : string; virtual; abstract;
     property Color : string read GetColor;
 
   end;
@@ -29,13 +30,16 @@ type
     function GetItems(Index : Integer) : TWidget;
     procedure SetItems(Index : Integer; const Value : TWidget);
   public
-    property Items[Index : Integer] : TWidget read GetItems write SetItems;
+    constructor Create;
+    destructor Destroy; override;
     function Add(Widget : TWidget): Integer;
     function Count() : Integer;
     procedure SortById;
-    constructor Create;
-    destructor Destroy; override;
+    property Items[Index : Integer] : TWidget read GetItems write SetItems;
+
   end;
+
+  TWidgetClass = class of TWidget;
 
 
 implementation

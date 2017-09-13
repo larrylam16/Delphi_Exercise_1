@@ -4,19 +4,23 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, uWidget, uWidgetReader, uConstValue;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, uWidget, uWidgetReader,uSubWidget,uConstValue;
 
 type
   TWidgetForm = class(TForm)
+
     DisplayMemo: TMemo;
     OpenFileButton: TButton;
     ComboBox: TComboBox;
     procedure OpenFileButtonClick(Sender: TObject);
     procedure ComboBoxChange(Sender: TObject);
+    procedure LoadAndDisplay();
     constructor Create(AOwner: TComponent); override;
+
   private
     FFileName : string;
     procedure DisplayResult(WidgetList : TWidgetList; DisplayMemo : TMemo);
+
   end;
 
 var
@@ -28,35 +32,54 @@ implementation
 constructor TWidgetForm.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  ComboBox.Style := csDropDownList;
   FFileName := '';
-  ComboBox.Enabled := false;
-  DisplayMemo.Clear;
+  ComboBox.AddItem(REDWIDGET,nil);
+  ComboBox.AddItem(BLUEWIDGET,nil);
 end;
 
 procedure TwidgetForm.ComboBoxChange(Sender: TObject);
+begin
+  LoadAndDisplay;
+end;
+
+procedure TwidgetForm.LoadAndDisplay;
+
 var
   WidgetList : TWidgetList;
   WidgetReader : TWidgetReader;
-begin
-  WidgetList := TWidgetList.Create;
-  try
-    WidgetReader := TWidgetReader.Create;
-    try
-      if ComboBox.Text = REDWIDGET then
-        WidgetReader.LoadFileToList(FFileName,WidgetList,REDWIDGET)
-      else
-        if ComboBox.Text = BLUEWIDGET then
-          WidgetReader.LoadFileToList(FFileName,WidgetList,BLUEWIDGET);
-      DisplayMemo.Text :='';
-      DisplayResult(WidgetList, DisplayMemo);
-    finally
-      WidgetReader.Free;
-    end;
-  finally
-    WidgetList.Free;
-  end;
+  WidgetClass : TWidgetClass;
 
+begin
+  if FFileName <> '' then
+  begin
+    WidgetList := TWidgetList.Create;
+    try
+      WidgetReader := TWidgetReader.Create;
+      try
+        if ComboBox.Text = REDWIDGET then
+        begin
+          WidgetClass := TRedWidget;
+          WidgetReader.LoadFileToList(FFileName,WidgetList,WidgetClass);
+        end
+        else if ComboBox.Text = BLUEWIDGET then
+        begin
+          WidgetClass := TBlueWidget;
+          WidgetReader.LoadFileToList(FFileName,WidgetList,WidgetClass);
+        end
+        else if ComboBox.Text = '' then
+        begin
+          ShowMessage('Please select a Widget Type first.');
+          FFileName := '';
+        end;
+        DisplayMemo.Text :='';
+        DisplayResult(WidgetList, DisplayMemo);
+      finally
+        WidgetReader.Free;
+      end;
+    finally
+      WidgetList.Free;
+    end;
+  end;
 end;
 
 procedure TWidgetForm.OpenFileButtonClick(Sender: TObject);
@@ -73,11 +96,7 @@ begin
     if OpenFile.Execute then
     begin
       FFileName := OpenFile.FileName;
-      ComboBox.Enabled := true;
-      ComboBox.Clear;
-      DisplayMemo.Clear;
-      ComboBox.AddItem(REDWIDGET,nil);
-      ComboBox.AddItem(BLUEWIDGET,nil);
+      LoadAndDisplay();
     end;
   finally
     FreeAndNil(OpenFile);
