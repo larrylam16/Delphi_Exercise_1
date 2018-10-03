@@ -46,7 +46,7 @@ end;
 
 function TWidget.GetAsString: string;
 begin
-  Result := 'Id: ' + IntToStr(FId) + ' Description: ' +
+  Result := 'Id: ' + IntToStr(FId) + ' Desc: ' +
                    FDescription;
 end;
 
