@@ -33,7 +33,7 @@ FormOnTop=0
 ModuleType=TURLModule
 
 [EditWindow0]
-ViewCount=5
+ViewCount=6
 CurrentEditView=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\uWidgetForm.pas
 View0=0
 View1=1
@@ -87,8 +87,8 @@ EditViewName=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\uWidgetForm.pas
 [View2]
 CustomEditViewType=TEditView
 Module=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\uWidgetReader.pas
-CursorX=15
-CursorY=44
+CursorX=10
+CursorY=41
 TopLine=13
 LeftCol=1
 Elisions=
@@ -98,8 +98,8 @@ EditViewName=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\uWidgetReader.p
 [View3]
 CustomEditViewType=TEditView
 Module=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\DelphiExercise1.dpr
-CursorX=34
-CursorY=15
+CursorX=30
+CursorY=10
 TopLine=1
 LeftCol=1
 Elisions=
