@@ -3,19 +3,25 @@ unit uWidget;
 interface
 
 uses
-  SysUtils, Classes, Generics.Collections, Generics.Defaults;
+  SysUtils, Classes, Generics.Collections, Generics.Defaults, uConstValue;
 
 type
   TWidget = class
   private
     FId : Integer;
     FDescription : string;
+    FSize : Integer;
     function GetAsString : string;
+  protected
+    function GetColor : string; virtual; abstract;
   public
     property Id : Integer read FId;
     property Description : string read FDescription write FDescription;
     property AsString : string read GetAsString;
-    Constructor Create(AId: Integer; ADescription: string);
+    property Size : Integer read FSize write FSize;
+    Constructor Create(AId: Integer; ADescription: string); virtual;
+    property Color : string read GetColor;
+
   end;
 
   TWidgetList = class
@@ -27,27 +33,34 @@ type
     property Items[Index : Integer] : TWidget read GetItems write SetItems;
     function Add(Widget : TWidget): Integer;
     function Count() : Integer;
+
     procedure SortById;
     constructor Create;
     destructor Destroy; override;
   end;
+
+  TWidgetClass = class of TWidget;
 
 
 implementation
 
 uses Math;
 
+
 Constructor TWidget.Create(AId: Integer; ADescription: string);
 begin
   inherited Create;
   FId := AId;
-  Description := ADescription;
+  FDescription := ADescription;
+  FSize := 0;
 end;
+
 
 function TWidget.GetAsString: string;
 begin
-  Result := 'Id: ' + IntToStr(FId) + ' Desc: ' +
-                   FDescription;
+  Result := 'Id: ' + IntToStr(FId) + ', Description: ' +
+                   FDescription + ', Color: ' + GetColor +
+                   ', Size: ' + IntToStr(FSize);
 end;
 
 function TWidgetList.Add(Widget: TWidget) : Integer;

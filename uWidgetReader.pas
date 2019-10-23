@@ -3,25 +3,26 @@ unit uWidgetReader;
 interface
 
 uses
-  System.SysUtils, uWidget, System.Classes, Vcl.Dialogs;
+  System.SysUtils, uWidget, System.Classes, Vcl.Dialogs, uConstValue;
 
 type
   TWidgetReader = class
   private
-    procedure AddWidgetToList(SourceStr : string; WidgetList : TWidgetList);
+    procedure AddWidgetToList(SourceStr : string; WidgetList : TWidgetList;
+                              WidgetClass : TWidgetClass);
   public
     procedure LoadFileToList(const FileName: TFileName;
-                              WidgetList : TWidgetList);
+                              WidgetList : TWidgetList;
+                              WidgetClass : TWidgetClass);
   end;
 
 
-const
-  TAB : char = #9;
-
 implementation
 
+
 procedure TWidgetReader.LoadFileToList(const FileName: TFileName;
-                                      WidgetList : TwidgetList);
+                                      WidgetList : TwidgetList;
+                                      WidgetClass : TWidgetClass);
 var
   Reader : TStreamReader;
   LineContent : string;
@@ -33,14 +34,16 @@ begin
     while not(Reader.EndOfStream) do
     begin
       LineContent := Reader.ReadLine;
-      AddWidgetToList(LineContent,WidgetList);
+      AddWidgetToList(LineContent,WidgetList,WidgetClass);
     end;
   finally
     FreeAndNil(Reader);
   end;
 end;
 
-procedure TWidgetReader.AddWidgetToList(SourceStr: string; WidgetList: TWidgetList);
+procedure TWidgetReader.AddWidgetToList(SourceStr: string;
+                                        WidgetList: TWidgetList;
+                                        WidgetClass : TWidgetClass);
 var
   Description : string;
   Id : Integer;
@@ -52,7 +55,7 @@ begin
   TabPosition := Pos(TAB,SourceStr);
   Id := StrToInt(Copy(SourceStr,0,tabPosition-1));
   Description := Copy(SourceStr,tabPosition+1,StrLength - tabPosition);
-  Widget := TWidget.Create(id,description);
+  Widget := WidgetClass.Create(id,description);
   WidgetList.Add(Widget);
 end;
 
