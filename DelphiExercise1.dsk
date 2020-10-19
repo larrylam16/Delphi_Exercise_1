@@ -98,9 +98,9 @@ EditViewName=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\uWidgetReader.p
 [View3]
 CustomEditViewType=TEditView
 Module=C:\Users\xchen\Documents\Delphi Projects\Exercise 1\DelphiExercise1.dpr
-CursorX=34
-CursorY=15
-TopLine=1
+CursorX=35
+CursorY=12
+TopLine=10
 LeftCol=1
 Elisions=
 Bookmarks=
